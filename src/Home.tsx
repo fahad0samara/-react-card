@@ -1,9 +1,16 @@
-import Item from './Item/Item';
-import Cart from './Cart/Cart';
+import Item from './card/Item/Item';
+import Cart from './card/Cart/Cart';
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import Drawer from '@material-ui/core/Drawer';
+import {AiOutlineShoppingCart }from  'react-icons/ai';
 
-// Types
+import Grid from '@material-ui/core/Grid';
+import Badge from '@material-ui/core/Badge'
+
+
+
+
 export type CartItemType = {
   id: number;
   category: string;
@@ -20,11 +27,13 @@ const frist = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([] as CartItemType[]);
 const[data, Setdata] = useState([] as any);
+
+
   
-  console.log(data);
+
 useEffect(() => {
   axios.get('https://fakestoreapi.com/products').then(function (response) {
-    console.log(response.data);
+  
     Setdata(response.data);
   }).catch(function (error) {
     console.error(error);
@@ -66,30 +75,39 @@ useEffect(() => {
   };
 
 
+
+
+
   return (
     <>
-   
-      <div className='h'>
-      <button  onClick={() => setCartOpen(false)}>card</button>
+     
+      <Drawer anchor='right' open={cartOpen} onClose={() => setCartOpen(false)}>
         <Cart
           cartItems={cartItems}
-         
-         
+          addToCart={handleAddToCart}
+          removeFromCart={handleRemoveFromCart}
         />
-      </div>
-      <div >
-        <button onClick={() => setCartOpen(true)}></button>
+      </Drawer>
       
-      </div> 
-     <div className="grid grid-cols-3 gap-8 mt-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {data?.map(item => (
-          <div  key={item.id} >
-            <Item item={item} handleAddToCart={handleAddToCart} />
-          </div>
-        ))}
+   
+      <div></div>
+      <button  onClick={() => setCartOpen(true)}>
+        <Badge badgeContent={getTotalItems(cartItems)} color='error'>
+          <AiOutlineShoppingCart size={50} color='green' />
+          
+        </Badge>
         
-        </div>
-      </>
+      </button>
+      
+      <Grid container spacing={4}>
+        {data?.map(item => (
+          <Grid item key={item.id} xs={12} sm={4}>
+            <Item item={item} handleAddToCart={handleAddToCart} />
+          </Grid>
+        ))}
+      </Grid>
+    </>
+     
     
    
   );

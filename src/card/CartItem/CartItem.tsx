@@ -1,6 +1,6 @@
 
 // Types
-import { CartItemType } from '../Frist';
+import { CartItemType } from '../../Home';
 // Styles
 
 
@@ -10,32 +10,28 @@ type Props = {
   removeFromCart: (id: number) => void;
 };
 
-const CartItem: React.FC<Props> = ({ item, addToCart, removeFromCart }) => (
+const CartItem: React.FC<Props> = ({ item }) => (
   <>
-    <div className=''>
-
-      <img className='w-32' src={item.image} alt={item.title} />
-      <h3>{item.title}</h3>
 
 
-      <p>Price: ${item.price}</p>
-      <p>Total: ${(item.amount * item.price).toFixed(2)}</p>
 
 
-      <button
-        onClick={() => removeFromCart(item.id)}
-      >
-        -
-      </button>
-      <p>{item.amount}</p>
-      <button
 
-        onClick={() => addToCart(item)}
-      >
-        +
-      </button>
+
+    <div >
+
+
+      <div className="   ">
+        <img className='w-full  h-40 object-cover' src={item.image} alt={item.title} />
+        <h1 className="text-2xl font-bold ">{item.title}</h1>
+
+        <p className="mt-2 text-sm">Price: ${item.price}</p>
+
+      </div>
 
     </div>
+
+
 
   </>
 );

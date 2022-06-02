@@ -1,6 +1,6 @@
 import CartItem from '../CartItem/CartItem';
 
-import { CartItemType } from '../Frist';
+import { CartItemType } from '../../Home';
 
 type Props = {
   cartItems: CartItemType[];
@@ -13,9 +13,10 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
     items.reduce((ack: number, item) => ack + item.amount * item.price, 0);
 
   return (
-    <div className=' grid '>
+    <div  >
       <h2>Your Shopping Cart</h2>
       {cartItems.length === 0 ? <p>No items in cart.</p> : null}
+      <div className=' grid grid-cols-4 gap-8'>
       {cartItems.map(item => (
         <CartItem
           key={item.id}
@@ -24,6 +25,7 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
           removeFromCart={removeFromCart}
         />
       ))}
+      </div>
       <h2>Total: ${calculateTotal(cartItems).toFixed(2)}</h2>
     </div>
   );

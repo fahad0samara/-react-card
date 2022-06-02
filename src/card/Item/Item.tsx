@@ -1,5 +1,5 @@
 // Types
-import {CartItemType} from "../Frist";
+import {CartItemType} from "../../Home";
 // Styles
 
 type Props = {
